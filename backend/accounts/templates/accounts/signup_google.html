@@ -1,0 +1,36 @@
+
+<h2 style="text-align: center;">회원가입</h2>
+
+<form method="post">
+  {% csrf_token %}
+
+  <p>이메일: <input type="email" name="email" value="{{ email }}" readonly></p>
+
+  <!-- 아이디, 비밀번호 등 약관 관련 -->
+  <label>
+    <input type="checkbox" id="agree_all">
+    약관 전체 동의
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="terms" required>
+    이용약관에 동의합니다. (필수)
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="privacy" required>
+    개인정보 수집 및 이용에 동의합니다. (필수)
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="age" required>
+    만 14세 이상입니다. (필수)
+  </label><br>
+
+  <label>
+    <input type="checkbox" name="marketing">
+    마케팅 목적의 개인정보 수집 및 이용 동의 (선택)
+  </label><br>
+
+  <button class="btn submit-btn" type="submit">가입하기</button>
+</form>
