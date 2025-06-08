@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dream-detail-page">
+    <div id="wrapper">
+        <div class="container">
+            <header>
+                <span class="close-btn" onclick="history.back()">&times;</span>
+                <span id="dream-date" class="dream-date"></span>
+                <span class="icon"></span>
+            </header>
+
+            <main class="content-card">
+                <h1 id="dream-title" class="title"></h1>
+                <div id="dream-interpretation" class="interpretation">
+                </div>
+            </main>
+
+            <footer>
+                <button class="save-button" onclick="saveDreamAndRedirect()">해몽 저장하기</button>
+            </footer>
+
+        </div>
+    </div>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/dream-detail.js"></script>
+</body>
+</html>

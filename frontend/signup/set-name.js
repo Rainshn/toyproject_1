@@ -17,7 +17,7 @@ nameInput.addEventListener("input", () => {
 completeBtn.addEventListener("click", () => {
   if (!completeBtn.disabled) {
     // 필요시 localStorage 저장 가능
-    window.location.href = "../main/main.html";
+    window.location.href = "../home/index.html";
   }
 });
 
