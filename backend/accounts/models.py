@@ -10,9 +10,6 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-# class CustomUser(AbstractUser):
-#     email = models.EmailField(unique=True, max_length=30) # 고유 이메일, 최대 30자
-
 class CustomUser(AbstractUser):
     nickname = models.CharField(max_length=10)
 

@@ -8,4 +8,6 @@ urlpatterns = [
     path('signup_google/', views.signup_google_view, name='signup_google'),
     path('nickname/', views.nickname_view, name='nickname'),
     path('check-username/', views.check_username, name='check_username'),
+    path('logout/', views.logout_view, name='logout'),
+    path('withdrawal/', views.withdrawal_view, name='withdrawal'),
 ]

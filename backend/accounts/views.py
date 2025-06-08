@@ -1,18 +1,22 @@
 from os.path import exists
 
 from allauth.socialaccount.models import SocialAccount
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from .models import Post
 from .forms import SignUpForm
+from dreams.models import DreamKeyword, DreamRecord
 
 User = get_user_model()
 
 ## 일반 회원가입
+@csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
 def signup_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -57,6 +61,7 @@ def signup_view(request):
         return render(request, 'accounts/signup.html', {'form': form})
 
 ## 로그인
+@csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -70,6 +75,7 @@ def login_view(request):
     return render(request, 'accounts/login.html')
 
 ## 닉네임 설정
+@csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
 def nickname_view(request):
     if request.method == 'POST':
         nickname = request.POST.get('nickname')
@@ -94,10 +100,11 @@ def signup_complete_view(request):
     return render(request, 'accounts/signup_complete.html')
 
 ## 구글 회원가입
+@csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
 def signup_google_view(request):
     if not request.user.is_authenticated:
-        # 로그인 안 되어 있으면 로그인 페이지로 리다이렉트하거나 적절히 처리
-        return redirect('login')  # 로그인 URL 이름으로 변경하세요
+        # 로그인 안 되어 있으면 로그인 페이지로 리다이렉트
+        return redirect('login')
 
     if request.method == 'POST':
         # 약관 체크
@@ -127,3 +134,24 @@ def signup_google_view(request):
         return render(request, 'accounts/signup_google.html', {
             'email': request.user.email,
         })
+
+## 로그아웃
+@require_POST
+@csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+## 회원 탈퇴
+@require_POST
+@login_required
+@csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
+def withdrawal_view(request):
+    user = request.user
+
+    DreamKeyword.objects.filter(user=user).delete()
+    DreamRecord.objects.filter(user=user).delete()
+
+    logout(request) # 세션 로그아웃
+    user.delete() # 유저 삭제
+    return redirect('login')
