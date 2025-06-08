@@ -1,0 +1,416 @@
+/* -- 1. 공통 스타일 -- */
+body {
+    background-color: #F0F2F5; 
+    color: #FFFFFF; 
+    font-family: 'Apple SD Gothic Neo', sans-serif;
+    margin: 0;
+    padding: 0;
+
+    /* 래퍼(휴대폰 목업)를 화면 정중앙에 위치시키기 위한 Flex 속성 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 휴대폰 목업 프레임 스타일 */
+#wrapper {
+    width: 375px;
+    height: 812px;
+    margin: 20px 0; /* 상하 여백 */
+    background-color: #121212;
+    border-radius: 40px;
+    border: 8px solid #111;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative; 
+    overflow-y: auto; /* 내용이 길면 이 안에서만 스크롤 */
+    overflow-x: hidden;
+    display: flex; /* 내부 컨텐츠(header, main, footer)의 세로 정렬을 위함 */
+    flex-direction: column;
+}
+
+/* 스크롤바 디자인 (임시로) */
+#wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+#wrapper::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 4px;
+}
+#wrapper::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.container {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* 컨테이너가 #wrapper 내부를 꽉 채우도록 함 */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 4px;
+}
+
+/* -- 2. results.html -- */
+.icon {
+    font-size: 30px;
+}
+
+.dream-list-item {
+    background-color: #21212F;
+    border-radius: 14px;
+    margin-bottom: 10px;
+}
+        
+/* 박스 내부가 링크(a)일 경우의 스타일 */
+.dream-list-item a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 16px;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+/* dream-detail.html로 가는 > 버튼 */
+.dream-list-item .arrow {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.no-dreams-item {
+    background-color: #21212F;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 16px;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+/* -- 3. dream-detail.html */
+.dream-detail-page .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /**/
+}
+
+/* 'dream-detail-page' 내부의 header와 footer가 줄어들지 않도록 설정 */
+.dream-detail-page header,
+.dream-detail-page footer {
+    flex-shrink: 0;
+}
+
+header .close-btn {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+header .dream-date {
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.dream-detail-page main.content-card {
+    background-color: #21212F;
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 10px;
+    flex-grow: 1; /* main 영역이 남은 공간을 모두 차지 */
+    overflow-y: auto; /* 해몽 내용이 길어질 경우 main 영역만 스크롤 */
+}
+
+.content-card .title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 0 0 24px;
+}
+
+.content-card .interpretation p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #FFFFFF;
+    margin: 0 0 24px;
+    word-break: keep-all;
+}
+
+footer {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.save-button {
+    width: 100%;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 0;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+/* --- 4. saved-list.html  */
+.container-list-page .container {
+    /* 기존 스타일 유지 */
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.greeting-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0 20px;
+}
+
+.greeting-text {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+    
+.greeting-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 꿈 기록 카드 리스트 */
+.dream-card {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    background-color: #21212F;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 16px;
+}
+        
+.dream-card:hover {
+    background-color: #2c2c3a;
+}
+        
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+        
+.card-snippet {
+    font-size: 16px;
+    color: #888;
+    margin-bottom: 16px;
+    /* 두 줄 이상은 말줄임표(...)로 표시 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+        
+.card-date {
+    font-size: 13px;
+    color: #FFFFFF;
+}
+
+/* 하단 네비게이션 바 */
+.bottom-nav {
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 70px;
+    background-color: #252C55;
+    border-radius: 28px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+        
+.nav-item {
+    background-color: transparent;
+    border: none;
+}
+        
+.nav-item.active {
+    background-color: transparent;
+}
+
+.add-button {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, #4A90E2, #007AFF);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    /* 다른 아이템 위로 살짝 올라오게 배치 */
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #0C0C0D;
+}
+
+/* --- 4. records.html --- */
+.header-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.back-arrow {
+    font-size: 20px;
+    color: #FFFFFF;
+    text-decoration: none; /* <a> 태그 밑줄 제거 */
+}
+
+.more-options {
+    font-weight: bold;
+    letter-spacing: -1px;
+    cursor: pointer;
+}
+
+/* 꿈 기록한 창 */
+.user-dream-box {
+    background-color: #21212F;
+    border: 1px solid var(--detail-box-border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.user-dream-box h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.user-dream-box p {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    white-space: pre-wrap; /* 줄바꿈을 그대로 표시 */
+}
+
+.user-dream-box .tags span {
+    background-color: transparent;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.user-dream-box .tags .emoji {
+    display: block;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 0;
+}
+
+.interpretation-section {
+    background-color: #21212F;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+/* 저장한 해몽 창 */
+.interpretation-section h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.interpretation-section .interpretation-content p {
+    line-height: 1.4;
+    margin-bottom: 1.2em;
+    font-size: 14px;
+}
+
+/* 수정/삭제 옵션 메뉴 스타일 */
+.options-menu {
+    display: none; /* 초기에는 숨김 */
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    background-color: #007AFF;
+    border-radius: 8px;
+}
+
+.options-menu.active {
+    display: block; /* active 클래스가 붙으면 보임 */
+}
+
+.options-menu button {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.options-menu button:hover {
+    background-color: #f0f0f0;
+}
+
+/*
+수정 모드 스타일
+.edit-mode-form .form-group {
+    margin-bottom: 25px;
+}
+
+.edit-mode-form label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--secondary-text-color);
+}
+
+.edit-mode-form input[type="text"],
+.edit-mode-form textarea {
+    width: 100%;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 16px;
+    color: var(--primary-text-color);
+    font-family: inherit;
+}
+
+.edit-mode-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.header-detail .complete-button {
+    color: ##007AFF; 완료 버튼 색상
+    font-weight: bold;
+    cursor: pointer;
+} 
+*/
