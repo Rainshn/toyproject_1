@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // 보기 모드로 다시 렌더링
         renderViewMode();
     }
-    */
+        */
+
 
     // 4. 꿈 기록 삭제 함수
     function deleteDream() {
