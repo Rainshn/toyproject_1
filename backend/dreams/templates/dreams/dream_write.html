@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- 최상단 바 -->
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 16px; border-bottom:1px solid #ddd; position:sticky; top:0; background:#fff; z-index:1000;">
+  <div style="font-size:24px; cursor:pointer;" onclick="history.back()">×</div>
+  <div style="font-weight:bold;">2025.05.26</div>  {# 날짜 모달 자리 #}
+  <div>
+    <button type="submit" form="dreamForm">다음</button>
+  </div>
+</div>
+
+<form id="dreamForm" method="post" action="{% url 'dreams:dream_write' %}">
+  {% csrf_token %}
+
+  <input type="text" id="title" name="title" maxlength="20" placeholder="제목 (최대 20자)" required><br>
+
+  <label for="context">오늘은 어떤 꿈을 꾸셨나요?</label><br>
+  <textarea id="context" name="context" rows="6" required></textarea><br>
+
+  <p>&nbsp;</p>
+
+  <label for="tags">등장 요소를 태그해보세요! (ex. 사람, 장소, 사물 등)</label><br>
+  <input type="text" id="tags" name="tags" placeholder=""><br>
+
+  <p>&nbsp;</p>
+
+  <label>감정이 어떠셨나요?</label><br>
+  <div>
+    {% for row in feelings_rows %}
+      <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+        {% for feeling in row %}
+          <label style="flex: 1; text-align: center;">
+            <input type="checkbox" name="feelings" value="{{ feeling.emoji }}">
+            {{ feeling.emoji }}
+          </label>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</form>
+
+{% endblock %}

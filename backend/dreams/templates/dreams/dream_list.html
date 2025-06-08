@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>{{ user.nickname }}님의 꿈이</h2>
+<h2>저장되어 있어요.</h2>
+
+{% if dreams %}
+  <ul>
+    {% for dream in dreams %}
+      <li>
+        <a href="{% url 'dreams:dream_detail' dream_id=dream.id %}">
+          {{ dream.title }} - {{ dream.created_at|date:"Y-m-d" }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>아직 저장된 꿈이 없습니다.</p>
+{% endif %}
+
+{% endblock %}
