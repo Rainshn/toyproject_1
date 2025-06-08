@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>꿈결 - 홈</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- 상단 인사말 + 로고 아이콘 -->
+    <header class="header">
+      <div class="greeting">
+        <p>안녕하세요, <strong>지민</strong>님</p>
+        <h2>오늘도 꿈을 꾸셨나요?</h2>
+      </div>
+      <img src="images/logoicon.svg" alt="로고 아이콘" class="cloud-icon" />
+    </header>
+
+    <!-- 검색창 -->
+    <div class="search-box">
+      <input type="text" placeholder="궁금한 꿈의 키워드를 검색해보세요" />
+      <button>🔍</button>
+    </div>
+
+    <!-- 저장된 해몽 키워드 -->
+    <section class="keywords">
+      <h3>저장한 해몽 키워드</h3>
+      <div class="keyword-list">
+        <button>폭풍우</button>
+        <button>바람</button>
+        <button class="keyword" onclick="location.href='detail.html?keyword=오징어'">오징어</button>
+      </div>
+    </section>
+    <!-- index.html -->
+  
+
+    
+    <!-- 중앙 구름 이미지 -->
+    <div class="main-cloud">
+      <img src="images/logoback.svg" alt="배경 구름 이미지" />
+    </div>
+  </div>
+
+  <!-- 하단 네비게이션 -->
+  <footer class="bottom-nav">
+    <button class="nav-icon"><img src="images/icon-home.png" alt="홈" /></button>
+    <button class="floating-button" onclick="location.href='record.html'">＋</button>
+    <button class="nav-icon"><img src="images/icon-record.png" alt="기록" /></button>
+  </footer>
+</body>
+</html>
