@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=375, user-scalable=no" />
+  <title>회원가입</title>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+  <style>
+    /* 공통 레이아웃 설정 */
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #121212;
+      color: white;
+      font-family: sans-serif;
+      max-width: 375px;
+      height: 812px;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+
+    /* 상단 헤더 및 제목 */
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 40px 0;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    /* 뒤로가기 버튼 */
+    #back-button {
+      position: absolute;
+      left: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* 이메일 인풋 */
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 0;
+      font-size: 16px;
+      border: none;
+      border-bottom: 1px solid #EFEFEF;
+      background-color: transparent;
+      color: #fff;
+    }
+
+    /* 체크박스 파란색 스타일 */
+    input[type="checkbox"]:checked {
+      accent-color: #007AFF;
+    }
+
+    /* 약관 체크박스 그룹 */
+    .checkbox-group {
+      margin-top: 30px;
+      color: #767676;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    /* 버튼 스타일 */
+    #submitBtn {
+      width: 100%;
+      margin-top: 40px;
+      padding: 15px;
+      background-color: #949494;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 헤더 및 뒤로가기 버튼 -->
+  <header>
+    <i class="bi bi-chevron-left" id="back-button"></i>
+    <h1>회원가입</h1>
+  </header>
+
+  <!-- 이메일 필드 (읽기 전용) -->
+  <label for="email">이메일 <span style="color: red">*</span></label>
+  <input type="email" id="email" readonly />
+
+  <!-- 약관 동의 체크박스 -->
+  <div class="checkbox-group">
+    <label><input type="checkbox" id="allAgree" /> 약관 전체동의</label>
+    <hr style="border-bottom: 1px solid #EFEFEF;" />
+    <label><input type="checkbox" class="required" /> 이용약관에 동의합니다</label>
+    <label><input type="checkbox" class="required" /> 개인정보 수집 및 이용에 동의합니다. (필수)</label>
+    <label><input type="checkbox" class="required" /> 만 14세 이상입니다. (필수)</label>
+    <label><input type="checkbox" class="optional" /> 마케팅 목적의 개인정보 수집, 이용 동의 (선택)</label>
+  </div>
+
+  <!-- 가입하기 버튼 (기본 비활성) -->
+  <button id="submitBtn" disabled>가입하기</button>
+
+  <!-- 기능 동작용 JS -->
+  <script src="google-signup.js"></script>
+</body>
+</html>
