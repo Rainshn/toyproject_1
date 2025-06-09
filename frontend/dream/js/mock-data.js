@@ -1,3 +1,5 @@
+/* 백엔드 없이도 동작할 수 있게끔 임시로 만든 가짜 데이터들입니다.  */
+
 const MASTER_DREAM_DATA = [
     { 
         id: 'squid_dream_01', 
