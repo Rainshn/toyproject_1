@@ -155,3 +155,5 @@ def withdrawal_view(request):
     logout(request) # 세션 로그아웃
     user.delete() # 유저 삭제
     return redirect('login')
+
+

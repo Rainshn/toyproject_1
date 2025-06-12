@@ -14,3 +14,4 @@ class DreamRecord(models.Model): # 꿈 기록
     tags = models.CharField(max_length=100) # 쉼표 구분 태그
     feelings = models.CharField(max_length=100, blank=True) # 쉼표 구분 감정
     created_at = models.DateTimeField(auto_now_add=True)
+

@@ -11,4 +11,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')), # 무조건 accounts.urls이 allauth.urls 위에 위치해야 합니다!
     path('accounts/', include('allauth.urls')),  # django-allauth URL
     path('dreams/', include('dreams.urls')),
+    path('interpretation/', include('interpretation.urls', namespace='interpretation')),
 ]

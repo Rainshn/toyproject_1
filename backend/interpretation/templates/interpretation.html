@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>꿈 해몽 결과</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 2rem;
+
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+        .section p {
+            padding: 1rem;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>꿈 해몽 결과</h1>
+
+        <div class="section">
+            <h2>꿈 제목</h2>
+            <p>{{ prompt }}</p>
+        </div>
+
+        <div class="section">
+            <h2>해몽 내용</h2>
+            <p>{{ result|safe }}</p>
+        </div>
+    </div>
+</body>
+</html>

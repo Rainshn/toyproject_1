@@ -18,3 +18,4 @@ class CustomUser(AbstractUser):
     privacy_agreed = models.BooleanField(default=False)
     age_confirmed = models.BooleanField(default=False)
     marketing_agreed = models.BooleanField(default=False) # 선택 약관
+
