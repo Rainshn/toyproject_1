@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     relatedDreams.forEach(dream => {
         const listItem = `
             <div class="dream-list-item">
-                <a href="./dream-detail.html?id=${dream.id}">
+                <a href="/dream-detail.html?id=${dream.id}">
                     <span>${dream.title}</span>
                     <span class="arrow">&gt;</span>
                 </a>

@@ -79,21 +79,21 @@
 </head>
 <body>
   <div class="record-container">
-
-    <!-- ✅ 상단 날짜 선택 -->
+    <!-- ✅ 상단 날짜 선택 / ☑️ 페이지 이동(추가) -->
     <header class="record-header">
-      <button class="back-btn">✕</button>
+      <button class="back-btn" onclick="history.back()">✕</button>
 
       <!-- ✅ label로 연결 -->
       <label for="hiddenDatePicker" class="date-toggle-btn">
         <span id="selectedDate">2025.05.26</span> ▼
       </label>
 
-      <button class="next-btn">다음</button>
+      <!-- ☑️ 다음 누르면 페이지 이동 (추가) -->
+      <button id="sumbit-btn" class="next-btn" onclick="location.href='detail.html'">다음</button>
     </header>
 
     <!-- ✅ 숨겨진 input[type=date] -->
-    <input type="date" id="hiddenDatePicker" onchange="updateDate()" />
+    <input type="date" id="hiddenDatePicker" onchange="updateDate()"/>
 
     <main class="record-main">
       <label class="record-label">제목 (최대 20자)</label>
