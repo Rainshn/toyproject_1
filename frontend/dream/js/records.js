@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         headerEl.innerHTML = `
             <a href="saved-list.html" class="back-arrow">&lt;</a>
             <span>${currentDream.date}</span>
-            <span id="more-options-button" class="more-options"><img src="images/span-add.png" alt="더보기"></span>
+            <span id="more-options-button" class="more-options"><img src="../images/span-add.png" alt="더보기"></span>
         `;
 
         // 콘텐츠 렌더링
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    /*
+    /* 수정 기능이 잘 작동하지 않아 서버 연결 후 다시 시도해보려고 일단 주석 처리 해두었습니다!
     // 2. 수정 모드 렌더링 함수
     function renderEditMode() {
         // 헤더 렌더링

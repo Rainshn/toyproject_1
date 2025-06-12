@@ -1,23 +1,19 @@
 /* -- 1. 공통 스타일 -- */
 body {
-    background-color: #F0F2F5; 
-    color: #FFFFFF; 
+    margin: 0 auto;
+    background-color: #121212;
+    color: white;
     font-family: 'Apple SD Gothic Neo', sans-serif;
-    margin: 0;
-    padding: 0;
-
-    /* 래퍼(휴대폰 목업)를 화면 정중앙에 위치시키기 위한 Flex 속성 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    max-width: 375px;
+    /*padding: 20px;*/
+    height: 100vh;
+    box-sizing: border-box;
 }
 
-/* 휴대폰 목업 프레임 스타일 */
 #wrapper {
     width: 375px;
     height: 812px;
-    margin: 20px 0; /* 상하 여백 */
+    /* margin: 20px 0; 상하 여백 */
     background-color: #121212;
     border-radius: 40px;
     border: 8px solid #111;
@@ -29,20 +25,8 @@ body {
     flex-direction: column;
 }
 
-/* 스크롤바 디자인 (임시로) */
-#wrapper::-webkit-scrollbar {
-    width: 4px;
-}
-#wrapper::-webkit-scrollbar-thumb {
-    background-color: #444;
-    border-radius: 4px;
-}
-#wrapper::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
 .container {
-    padding: 0 16px;
+    /* padding: 0 16px; */
     display: flex;
     flex-direction: column;
     flex-grow: 1; /* 컨테이너가 #wrapper 내부를 꽉 채우도록 함 */
@@ -228,17 +212,20 @@ footer {
 
 /* 하단 네비게이션 바 */
 .bottom-nav {
-    position: absolute;
-    bottom: 0px;
+    position: fixed;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    height: 70px;
-    background-color: #252C55;
-    border-radius: 28px;
+    max-width: 430px;
+    background-color: #2c2f75;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 12px 0;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    z-index: 100;
 }
         
 .nav-item {
@@ -376,41 +363,3 @@ footer {
 .options-menu button:hover {
     background-color: #f0f0f0;
 }
-
-/*
-수정 모드 스타일
-.edit-mode-form .form-group {
-    margin-bottom: 25px;
-}
-
-.edit-mode-form label {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: var(--secondary-text-color);
-}
-
-.edit-mode-form input[type="text"],
-.edit-mode-form textarea {
-    width: 100%;
-    background-color: var(--card-bg-color);
-    border: 1px solid var(--accent-color);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 16px;
-    color: var(--primary-text-color);
-    font-family: inherit;
-}
-
-.edit-mode-form textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.header-detail .complete-button {
-    color: ##007AFF; 완료 버튼 색상
-    font-weight: bold;
-    cursor: pointer;
-} 
-*/
