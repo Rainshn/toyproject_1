@@ -16,3 +16,16 @@ FROM dreams_dreamrecord d
 JOIN accounts_customuser u ON d.user_id = u.id
 ORDER BY d.id ASC;
 
+-- 모든 회원 삭제 (주의!)
+SET SQL_SAFE_UPDATES = 0;
+SET FOREIGN_KEY_CHECKS = 0;
+DELETE FROM accounts_customuser;
+SET SQL_SAFE_UPDATES = 1;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- 특정 username을 가진 사용자 삭제
+SET SQL_SAFE_UPDATES = 0;
+SET FOREIGN_KEY_CHECKS = 0;
+DELETE FROM accounts_customuser WHERE username = 'rainshn1';
+SET SQL_SAFE_UPDATES = 1;
+SET FOREIGN_KEY_CHECKS = 1;

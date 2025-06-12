@@ -1,3 +1,5 @@
+import json
+
 from os.path import exists
 
 from allauth.socialaccount.models import SocialAccount
@@ -9,56 +11,57 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from .models import Post
 from .forms import SignUpForm
 from dreams.models import DreamKeyword, DreamRecord
 
 User = get_user_model()
 
-## 일반 회원가입
-@csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
+## 일반 회원가입 - 0610 FE-BE 연결 테스트 위해 코드 수정
+@csrf_exempt  # 개발 중에만 사용하세요
 def signup_view(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': '유효하지 않은 JSON'}, status=400)
 
-        # 필수 약관 동의 체크 여부 가져오기
-        terms = request.POST.get('terms')
-        privacy = request.POST.get('privacy')
-        age = request.POST.get('age')
+        username = data.get('username')
+        password1 = data.get('password1')
+        password2 = data.get('password2')
+        terms = data.get('terms')
+        privacy = data.get('privacy')
+        age = data.get('age')
+        marketing = data.get('marketing', False)
 
-        # 필수 항목 체크 안 되었을 경우 에러 처리
         if not (terms and privacy and age):
-            return render(request, 'accounts/signup.html', {
-                'form': form,
-                'error': '필수 약관에 모두 동의해주세요.'
-            })
+            return JsonResponse({'error': '필수 약관에 모두 동의해주세요.'}, status=400)
+
+        form = SignUpForm({
+            'username': username,
+            'password1': password1,
+            'password2': password2,
+        })
 
         if form.is_valid():
             user = form.save(commit=False)
-
-            # 선택 약관 처리
-            marketing = request.POST.get('marketing') == 'on'
             user.marketing_agreed = marketing
             user.save()
 
-            # 회원가입 후 인증(backend 정보 포함)
-            user = authenticate(request, username=user.username, password=request.POST['password1'])
+            user = authenticate(request, username=username, password=password1)
             if user is not None:
                 login(request, user)
-                return redirect('/accounts/signup_complete/')
+                return JsonResponse({'message': '회원가입 완료'}, status=201)
 
-        # 유효성 검사 실패 시
-        context ={
-            'form': form,
-            'username_error': form.errors.get('username'),
-            'password1_error': form.errors.get('password1'),
-            'password2_error': form.errors.get('password2'),
-        }
-        return render(request, 'accounts/signup.html', context)
+            return JsonResponse({'error': '로그인 실패'}, status=400)
+
+        return JsonResponse({'form_errors': form.errors}, status=400)
 
     else:
-        form = SignUpForm()
-        return render(request, 'accounts/signup.html', {'form': form})
+        return JsonResponse({'error': 'POST 요청만 허용됩니다'}, status=405)
+
+## GET 전용
+def signup_form_view(request):
+    return render(request, 'accounts/signup.html')
 
 ## 로그인
 @csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
@@ -66,6 +69,7 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -78,12 +82,29 @@ def login_view(request):
 @csrf_exempt # Postman 테스트용 CSRF 우회 - 개발 단계에서만 사용!!
 def nickname_view(request):
     if request.method == 'POST':
-        nickname = request.POST.get('nickname')
-        if nickname:
-            request.user.nickname = nickname
-            request.user.save()
-            return redirect('/')  # 서비스 메인 페이지로 이동
-    return render(request, 'accounts/nickname.html')
+        try:
+            data = json.loads(request.body)
+            nickname = data.get('nickname')
+        except (json.JSONDecodeError, AttributeError):
+            return JsonResponse({'error': '유효하지 않은 요청입니다.'}, status=400)
+
+        if not nickname:
+            return JsonResponse({'error': '닉네임을 입력해주세요.'}, status=400)
+
+        user = request.user
+        if not user.is_authenticated:
+            return JsonResponse({'error': '로그인이 필요합니다.'}, status=401)
+
+        user.nickname = nickname
+        user.save()
+        return JsonResponse({'message': '닉네임 설정 완료'}, status=200)
+
+    # GET 요청일 때 닉네임 설정 폼 페이지 렌더링
+    elif request.method == 'GET':
+        return render(request, 'accounts/nickname.html')
+
+    else:
+        return JsonResponse({'error': '지원하지 않는 요청입니다.'}, status=405)
 
 ## Username 중복 확인
 def check_username(request):
@@ -105,6 +126,14 @@ def signup_google_view(request):
     if not request.user.is_authenticated:
         # 로그인 안 되어 있으면 로그인 페이지로 리다이렉트
         return redirect('login')
+
+    # # User 테이블에 해당 이메일이 이미 존재하는지 확인
+    # if User.objects.filter(email=email).exists():
+    #     # 이미 존재하는 이메일이라면 중복 가입 방지
+    #     return render(request, 'accounts/signup_google.html', {
+    #         'email': request.user.email,
+    #         'error': '이미 가입된 구글 계정 또는 이메일입니다.'
+    #     })
 
     if request.method == 'POST':
         # 약관 체크
@@ -134,6 +163,11 @@ def signup_google_view(request):
         return render(request, 'accounts/signup_google.html', {
             'email': request.user.email,
         })
+
+## 가입 완료
+def signup_google(request):
+    return render(request, 'accounts/signup_google.html')
+
 
 ## 로그아웃
 @require_POST

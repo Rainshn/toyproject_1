@@ -1,36 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=375, user-scalable=no" />
+  <title>회원가입</title>
 
-<h2 style="text-align: center;">회원가입</h2>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-<form method="post">
-  {% csrf_token %}
+  <link rel="stylesheet" href="{% static 'google-signup.css' %}">
+</head>
+<body>
 
-  <p>이메일: <input type="email" name="email" value="{{ email }}" readonly></p>
+  <!-- 헤더 및 뒤로가기 버튼 -->
+  <header>
+    <i class="bi bi-chevron-left" id="back-button"></i>
+    <h1>회원가입</h1>
+  </header>
 
-  <!-- 아이디, 비밀번호 등 약관 관련 -->
-  <label>
-    <input type="checkbox" id="agree_all">
-    약관 전체 동의
-  </label><br>
+  <!-- 이메일 필드 (읽기 전용) -->
+  <label for="email">이메일 <span style="color: red">*</span></label>
+  <input type="email" id="email" readonly value="{{ email }}" />
 
-  <label>
-    <input type="checkbox" name="terms" required>
-    이용약관에 동의합니다. (필수)
-  </label><br>
+  <!-- 약관 동의 체크박스 -->
+  <div class="checkbox-group">
+    <label><input type="checkbox" id="allAgree" /> 약관 전체동의</label>
+    <hr style="border-bottom: 1px solid #EFEFEF;" />
+    <label><input type="checkbox" class="required" /> 이용약관에 동의합니다</label>
+    <label><input type="checkbox" class="required" /> 개인정보 수집 및 이용에 동의합니다. (필수)</label>
+    <label><input type="checkbox" class="required" /> 만 14세 이상입니다. (필수)</label>
+    <label><input type="checkbox" class="optional" /> 마케팅 목적의 개인정보 수집, 이용 동의 (선택)</label>
+  </div>
 
-  <label>
-    <input type="checkbox" name="privacy" required>
-    개인정보 수집 및 이용에 동의합니다. (필수)
-  </label><br>
+  <!-- 가입하기 버튼 (기본 비활성) -->
+  <button id="submitBtn" disabled>가입하기</button>
 
-  <label>
-    <input type="checkbox" name="age" required>
-    만 14세 이상입니다. (필수)
-  </label><br>
-
-  <label>
-    <input type="checkbox" name="marketing">
-    마케팅 목적의 개인정보 수집 및 이용 동의 (선택)
-  </label><br>
-
-  <button class="btn submit-btn" type="submit">가입하기</button>
-</form>
+  <!-- 기능 동작용 JS -->
+  <script src="{% static 'google-signup.js' %}"></script>
+</body>
+</html>

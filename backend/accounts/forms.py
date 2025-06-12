@@ -37,6 +37,13 @@ class SignUpForm(UserCreationForm):
             }
         }
 
+    # 아이디 중복 검증 추가 - 0610
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError(_('이미 존재하는 아이디입니다.'))
+        return username
+
     def clean_password1(self):
         password1 = self.cleaned_data.get('password1')
         if password1:

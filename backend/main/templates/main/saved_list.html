@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 꿈 기록</title>
+    <link rel="stylesheet" href="{% static 'dream.css' %}">
+</head>
+<body class="container-list-page">
+    <div id="wrapper">
+        <div class="container">
+            <section class="greeting-section">
+                <div class="greeting-text">{{ user.nickname }}님의 꿈이<br>저장되어 있어요.</div>
+                <div class="greeting-icon"><img src="{% static 'images/logo.png' %}" alt="로고"></div>
+            </section>
+
+            <main id="dream-list-container">
+            </main>
+
+            <footer class="bottom-nav">
+                <button class="nav-item active" onclick="location.href='{% url 'main:home' %}'">
+                    <img src="{% static 'images/no-home-active.png' %}" alt="홈" />
+                </button>
+
+                <button class="add-button" onclick="location.href='{% url 'dreams:dream_write' %}'">＋</button>
+
+                <button class="nav-item" onclick="location.href='{% url 'main:saved_list' %}'">
+                    <img src="{% static 'images/list-active.png' %}" alt="기록" />
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="{% static 'mock-data.js' %}"></script>
+    <script src="{% static 'saved-list.js' %}"></script>
+</body>
+</html>

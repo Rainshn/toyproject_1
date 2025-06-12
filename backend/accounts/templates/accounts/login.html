@@ -1,20 +1,66 @@
 {% load socialaccount %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>꿈결 로그인</title>
+  <link rel="stylesheet" href="{% static 'login.css' %}" />
+</head>
+<body>
+  <div class="container">
 
-<div style="text-align: center;">
-  <h2>꿈결</h2>
-  <form method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="아이디"><br>
-    <input type="password" name="password" placeholder="비밀번호"><br>
-    <button class="btn login-btn" type="submit">로그인</button><br>
-    <button class="btn signup-btn" type="button" onclick="location.href='/accounts/signup'">회원가입</button>
-  </form>
+    <!-- 앱 로고 및 제목 -->
+    <img src="{% static 'images/cloud_icon.svg' %}" alt="logo" class="logo" />
+    <h2>꿈결</h2>
 
-  <hr>
-  <p style="text-align:center; font-weight:bold;"> 간편 로그인 </p>
+    <!-- 로그인 폼 -->
+    <form id="loginForm" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="아이디" required />
+      <input type="password" name="password" placeholder="비밀번호" required />
+      <button type="submit" class="login-btn">로그인</button>
+    </form>
 
-  <!-- 구글 로그인 버튼 -->
-  <div style="text-align: center;">
-    <a href="{% provider_login_url 'google' process='login' %}">구글 로그인</a>
+    <!-- 회원가입 및 비밀번호 찾기 링크 -->
+    <button class="signup-btn" id="signupBtn">회원가입</button>
+    <a href="#" class="forgot">비밀번호를 잊으셨나요?</a>
+
+    <!-- 구분선 및 간편 로그인 텍스트 -->
+    <div class="divider">
+      <hr /><span>간편 로그인</span><hr />
+    </div>
+
+    <!-- 구글 로그인 버튼 -->
+    <button id="googleLoginBtn" class="google-login">
+      <img src="{% static 'images/g-logo.png' %}" alt="Google Logo" />
+      Sign in with Google
+    </button>
+
+    <!-- 구글 로그인 모달 -->
+    <div id="googleModal" class="modal-overlay hidden">
+      <div class="modal">
+        <p>
+          <strong>‘ggumgyeol’</strong>이(가)<br />
+          <strong>‘google.com’</strong>을(를)<br />
+          사용하여 로그인하려고 합니다.<br />
+          사용자에 관한 정보를 앱 및 웹사이트가<br />
+          공유하게 됩니다.
+        </p>
+        <div class="modal-buttons">
+          <button id="cancelBtn">취소</button>
+          <button id="continueBtn">계속</button>
+        </div>
+      </div>
+    </div>
+
   </div>
-</div>
+
+  <!-- 자체/구글 로그인 기능 관련 스크립트 -->
+  <script>
+    const googleLoginUrl = "{% provider_login_url 'google' process='login'|escapejs %}";
+  </script>
+  <script src="{% static 'login.js' %}"></script>
+</body>
+</html>

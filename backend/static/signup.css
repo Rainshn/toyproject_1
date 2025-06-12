@@ -1,0 +1,154 @@
+body {
+  margin: 0 auto;
+  background-color: #121212;
+  color: white;
+  font-family: sans-serif;
+  max-width: 375px;
+  padding: 20px;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* 뒤로가기 버튼 스타일 */
+#back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+/* 제목 스타일 */
+h1, .title {
+  font-size: 22px;
+  margin: 0;
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  margin: 15px 0 5px;
+  font-size: 14px;
+  
+}
+
+/* 필수 입력 항목 표시용 빨간색 */
+.required {
+  color: red;
+}
+
+/* 텍스트 및 비밀번호 입력 필드 스타일 */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #EFEFEF;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  box-sizing: border-box;
+
+}
+
+input::placeholder {
+  color: #888;
+}
+
+/* 아이디 입력과 중복 확인 버튼을 가로로 배치하는 박스*/
+.id-input-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* 아이디 중복 확인 버튼 기본 스타일*/
+#check-id {
+  padding: 10px 15px;
+  border: none;
+  background-color: #949494;
+  color: white;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  height: 40px;
+  transition: background-color 0.3s;
+}
+
+/* 아이디 중복 확인 버튼 활성화 상태 스타일 - 배경색 변경 */
+#check-id.active {
+  background-color: #007AFF;
+}
+
+/* 약관 체크박스*/
+.checkbox-group {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #767676;
+}
+
+/* 약관 체크박스 라벨*/
+.checkbox-group label {
+  display: block;
+  margin: 8px 0;
+}
+
+/* 제출 버튼 기본 스타일*/
+#submit-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  background-color: #949494;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  margin-top: 20px;
+  cursor: not-allowed;
+  transition: background-color 0.3s;
+}
+
+/* 제출 버튼 활성화 상태 스타일*/
+#submit-btn.active {
+  background-color: #007AFF;
+  cursor: pointer;
+}
+
+/* 에러 메시지*/
+.error-msg {
+  display: none;
+  color: #ff4d4d;
+  font-size: 13px;
+  margin: 4px 0 0 0;
+}
+
+/* 구분선 스타일*/
+hr {
+  border: none;
+  border-top: 1px solid #EFEFEF;
+  margin: 10px 0;
+}
+
+.container {
+  position: relative;
+  padding-top: 40px;
+  text-align: center;
+  background-color: #121212;
+  color: white;
+  height: 100vh;
+}

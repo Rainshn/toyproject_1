@@ -1,44 +1,152 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>꿈 기록</title>
+  <link rel="stylesheet" href="{% static 'home.css' %}" />
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+    }
 
-{% block content %}
-<!-- 최상단 바 -->
-<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 16px; border-bottom:1px solid #ddd; position:sticky; top:0; background:#fff; z-index:1000;">
-  <div style="font-size:24px; cursor:pointer;" onclick="history.back()">×</div>
-  <div style="font-weight:bold;">2025.05.26</div>  {# 날짜 모달 자리 #}
-  <div>
-    <button type="submit" form="dreamForm">다음</button>
+    .record-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      font-size: 16px;
+    }
+
+    .date-toggle-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .record-main {
+      padding: 16px;
+    }
+
+    .record-title,
+    .record-textarea,
+    .record-tags {
+      width: 100%;
+      background-color: #1b1b30;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .emoji-grid {
+      background-color: #1b1b30;
+      border-radius: 10px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .emoji-grid label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .emoji-grid input {
+      margin-bottom: 4px;
+    }
+
+    /* 숨겨진 date input */
+    #hiddenDatePicker {
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="record-container">
+
+    <!-- form 시작: POST 방식, CSRF 토큰 -->
+    <form method="POST" action="{% url 'dreams:dream_write' %}">
+      {% csrf_token %}
+
+      <!-- 상단 날짜 선택 -->
+      <header class="record-header">
+        <button type="button" class="back-btn">✕</button>
+
+        <!-- label과 숨겨진 input 연결 -->
+        <label for="hiddenDatePicker" class="date-toggle-btn">
+          <span id="selectedDate">2025.05.26</span> ▼
+        </label>
+
+        <!-- 다음 버튼: submit -->
+        <button type="submit" class="next-btn">다음</button>
+      </header>
+
+      <!-- 숨겨진 날짜 입력 -->
+      <input type="date" id="hiddenDatePicker" name="dream_date" onchange="updateDate()" />
+
+      <main class="record-main">
+        <label class="record-label" for="title">제목 (최대 20자)</label>
+        <input type="text" id="title" name="title" class="record-title" placeholder="제목을 입력하세요" maxlength="20" required />
+
+        <label class="record-label" for="context">오늘은 어떤 꿈을 꾸셨나요?</label>
+        <textarea id="context" name="context" class="record-textarea" rows="4" placeholder="꿈 내용을 입력하세요" required></textarea>
+
+        <label class="record-label" for="tags">등장 요소를 태그해보세요!<br/>(ex. 사람, 장소, 사물 등)</label>
+        <input type="text" id="tags" name="tags" class="record-tags" placeholder="ex. 학교, 강아지, 엄마" />
+
+        <label class="record-label">감정이 어떠셨나요?</label>
+        <div class="emoji-grid">
+          <label><input type="radio" name="feelings" value="😀" required /><span>😀</span></label>
+          <label><input type="radio" name="feelings" value="😊" /><span>😊</span></label>
+          <label><input type="radio" name="feelings" value="😭" /><span>😭</span></label>
+          <label><input type="radio" name="feelings" value="😠" /><span>😠</span></label>
+          <label><input type="radio" name="feelings" value="😱" /><span>😱</span></label>
+          <label><input type="radio" name="feelings" value="😁" /><span>😁</span></label>
+          <label><input type="radio" name="feelings" value="🤔" /><span>🤔</span></label>
+          <label><input type="radio" name="feelings" value="😵" /><span>😵</span></label>
+        </div>
+      </main>
+    </form>
   </div>
-</div>
 
-<form id="dreamForm" method="post" action="{% url 'dreams:dream_write' %}">
-  {% csrf_token %}
+  <script>
+    function updateDate() {
+      const value = document.getElementById("hiddenDatePicker").value;
+      if (value) {
+        const formatted = value.replace(/-/g, ".");
+        document.getElementById("selectedDate").innerText = formatted;
+      }
+    }
 
-  <input type="text" id="title" name="title" maxlength="20" placeholder="제목 (최대 20자)" required><br>
+    // 기본 오늘 날짜로 설정
+    window.onload = () => {
+      const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd
+      const formatted = today.replace(/-/g, ".");
+      document.getElementById("hiddenDatePicker").value = today;
+      document.getElementById("selectedDate").innerText = formatted;
+    }
 
-  <label for="context">오늘은 어떤 꿈을 꾸셨나요?</label><br>
-  <textarea id="context" name="context" rows="6" required></textarea><br>
-
-  <p>&nbsp;</p>
-
-  <label for="tags">등장 요소를 태그해보세요! (ex. 사람, 장소, 사물 등)</label><br>
-  <input type="text" id="tags" name="tags" placeholder=""><br>
-
-  <p>&nbsp;</p>
-
-  <label>감정이 어떠셨나요?</label><br>
-  <div>
-    {% for row in feelings_rows %}
-      <div style="display: flex; gap: 10px; margin-bottom: 8px;">
-        {% for feeling in row %}
-          <label style="flex: 1; text-align: center;">
-            <input type="checkbox" name="feelings" value="{{ feeling.emoji }}">
-            {{ feeling.emoji }}
-          </label>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  </div>
-</form>
-
-{% endblock %}
+    // ✕ 버튼: 이전 페이지로 이동
+    document.querySelector(".back-btn").addEventListener("click", function() {
+      window.history.back();
+    });
+  </script>
+</body>
+</html>

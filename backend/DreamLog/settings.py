@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from allauth.socialaccount.apps import SocialAccountConfig
@@ -8,7 +9,6 @@ import pymysql
 
 pymysql.install_as_MySQLdb()
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,13 +17,28 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# 신규 소셜 회원가입 시 리디렉션될 URL
+SOCIALACCOUNT_ADAPTER = 'accounts.adapters.MySocialAccountAdapter'
+
+# 중간 기본 페이지 없이 바로 구글 인증 화면으로 이동
+SOCIALACCOUNT_LOGIN_ON_GET = True  # 로그인 흐름 단순화
+
+# 로그인 직후 리디렉션되는 기본 경로
+LOGIN_REDIRECT_URL = '/accounts/signup_google/'  # 로그인 성공 시 이동 경로
+
+
+# ## 구글 로그인 리다이렉트
+# LOGIN_REDIRECT_URL = '/accounts/signup_google/'
 
 # Application definition
 
 INSTALLED_APPS = [
+    # django Cors 관련
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,6 +66,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # Cors (상단에 위치해야 함)
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,6 +76,39 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Cors 허용 도메인(출처 허용, 개발용)
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# 쿠키 인증
+CORS_ALLOW_CREDENTIALS = True
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = False
+
+
+# HTTP methods 추가
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT"
+)
+
+# 필요 헤더 추가
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
 
 ROOT_URLCONF = 'DreamLog.urls'
 
@@ -82,11 +131,7 @@ TEMPLATES = [
     },
 ]
 
-## 구글 로그인 리다이렉트
-LOGIN_REDIRECT_URL = '/accounts/signup_google/'
 
-# 중간 기본 페이지 없이 바로 구글 인증 화면으로 이동
-SOCIALACCOUNT_LOGIN_ON_GET = True
 
 WSGI_APPLICATION = 'DreamLog.wsgi.application'
 
@@ -94,6 +139,8 @@ WSGI_APPLICATION = 'DreamLog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+## 사용할 데이터베이스 설정
+## .env 파일 내용 수정 필요
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -143,6 +190,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': { # 인증 요청 시 구글에 전달할 추가 파라미터
             'access_type': 'online', # 사용자가 온라인 상태에서 인증 의미
             'prompt': 'select_account', # 강제로 계정 선택창 띄우기(기본 창 건너뜀)
+            'response_type': 'code', # response_type 파라미터 받기
         }
     }
 }
@@ -152,7 +200,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 LANGUAGE_CODE = 'ko'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -162,7 +210,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

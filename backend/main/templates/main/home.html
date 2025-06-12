@@ -1,40 +1,57 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>꿈결 - 홈</title>
+  <link rel="stylesheet" href="{% static 'home.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <!-- 상단 인사말 + 로고 아이콘 -->
+    <header class="header">
+      <div class="greeting">
+        <p>안녕하세요, <strong>{{ user.nickname }}</strong>님</p>
+        <h2>오늘도 꿈을 꾸셨나요?</h2>
+      </div>
+      <a href="mypage">
+        <img src="{% static 'images/logoicon.svg' %}" alt="로고 아이콘" class="cloud-icon" />
+      </a>
+    </header>
 
-{% block content %}
+    <!-- 검색창 -->
+    <div class="search-box">
+      <input type="text" placeholder="궁금한 꿈의 키워드를 검색해보세요" />
+      <button>🔍</button>
+    </div>
 
-<div style="display: flex; align-items: center; gap: 20px;">
-  <div>
-    <h2 style="margin-bottom: 0;">안녕하세요, {{ user.nickname }}님</h2>
-    <h2 style="margin-top: 4px;">오늘도 꿈을 꾸셨나요?</h2>
+    <!-- 저장된 해몽 키워드 -->
+    <section class="keywords">
+      <h3>저장한 해몽 키워드</h3>
+      <div class="keyword-list">
+        <button>폭풍우</button>
+        <button>바람</button>
+        <button class="keyword" onclick="location.href='dreams/dream_detail.html?keyword=오징어'">오징어</button>
+      </div>
+    </section>
+    <!-- index.html -->
+
+    <!-- 중앙 구름 이미지 -->
+    <div class="main-cloud">
+      <img src="{% static 'images/logoback.svg' %}" alt="배경 구름 이미지" />
+    </div>
   </div>
-  <div>
-    <a href="{% url 'main:mypage' %}" style="padding: 8px 16px;">마이페이지</a>
-  </div>
-</div>
 
-<!-- 키워드 검색 폼 -->
-<!-- (임시조치)검색 폼 대신 표시할 문구 -->
-<p>궁금한 꿈의 키워드를 검색해보세요.</p>
-<p>&nbsp;</p>
-
-<!-- 저장된 키워드 목록 -->
-<h3>저장된 해몽 키워드</h3>
-{% if saved_keywords %}
-<ul>
-    {% for keyword in saved_keywords %}
-    <li>{{ keyword }}</li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>저장된 키워드가 없습니다.</p>
-{% endif %}
-<p>&nbsp;</p>
-
-<!-- 플로팅 버튼 위치 -->
-<!-- 플로팅 버튼으로 바꾸어 주시면 됩니다 -->
-<p>
-    <a href="{% url 'dreams:dream_write' %}">꿈 기록하러 가기</a>
-</p>
-
-{% endblock %}
+  <!-- 하단 네비게이션 -->
+  <footer class="bottom-nav">
+    <button class="nav-icon" onclick="location.href='/'">
+      <img src="{% static 'images/icon-home.png' %}" alt="홈" />
+    </button>
+    <button class="floating-button" onclick="location.href='{% url 'dreams:dream_write' %}'">＋</button>
+    <button class="nav-icon" onclick="location.href='{% url 'main:saved_list' %}'">
+      <img src="{% static 'images/icon-record.png' %}" alt="기록" />
+    </button>
+  </footer>
+</body>
+</html>

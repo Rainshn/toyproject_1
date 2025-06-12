@@ -1,0 +1,88 @@
+    /* 공통 레이아웃 설정 */
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #121212;
+      color: white;
+      font-family: sans-serif;
+      max-width: 375px;
+      height: 812px;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+
+    /* 상단 헤더 및 제목 */
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 40px 0;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    /* 뒤로가기 버튼 */
+    #back-button {
+      position: absolute;
+      left: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* 이메일 인풋 */
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 0;
+      font-size: 16px;
+      border: none;
+      border-bottom: 1px solid #EFEFEF;
+      background-color: transparent;
+      color: #fff;
+    }
+
+    /* 체크박스 파란색 스타일 */
+    input[type="checkbox"]:checked {
+      accent-color: #007AFF;
+    }
+
+    /* 약관 체크박스 그룹 */
+    .checkbox-group {
+      margin-top: 30px;
+      color: #767676;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    /* 버튼 스타일 */
+    #submitBtn {
+      width: 100%;
+      margin-top: 40px;
+      padding: 15px;
+      background-color: #949494;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 16px;
+    }

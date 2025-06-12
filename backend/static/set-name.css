@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #121212;
+  color: white;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 375px;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+/* 뒤로가기 버튼 스타일 */
+#back-button {
+  position: absolute;
+  left: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+
+/* h1 제목 폰트 크기와 마진 초기화 */
+h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+/* 메인 영역은 남은 공간 모두 차지 */
+main {
+  flex: 1;
+}
+
+/* 라벨은 블록 요소, 아래 공간 확보 */
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* 필수 입력 표시 빨간색 */
+.required {
+  color: red;
+}
+
+/* 텍스트 입력 필드 스타일링 */
+input[type="text"] {
+  width: 100%;
+  font-size: 18px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+}
+
+/* 푸터는 가능한 아래쪽에 위치 */
+footer {
+  margin-top: auto;
+}
+
+/* 완료 버튼 기본 비활성화 스타일 */
+#complete-btn {
+  width: 100%;
+  padding: 16px;
+  background-color: #949494;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 12px;
+  cursor: not-allowed;
+  transition: background-color 0.3s;
+}
+
+/* 완료 버튼 활성화 시 스타일 */
+#complete-btn.active {
+  background-color: #007AFF;
+  cursor: pointer;
+}
+
