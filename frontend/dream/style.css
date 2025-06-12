@@ -16,8 +16,6 @@ body {
     /* margin: 20px 0; 상하 여백 */
     background-color: #121212;
     border-radius: 40px;
-    border: 8px solid #111;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
     position: relative; 
     overflow-y: auto; /* 내용이 길면 이 안에서만 스크롤 */
     overflow-x: hidden;
