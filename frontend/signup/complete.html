@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>가입 완료</title>
+  <style>
+    /* 전체 화면 설정: 중앙 정렬, 배경색, 폰트 지정 */
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #121212;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 컨테이너 크기 제한 및 상대 위치 설정 */
+    .container {
+      width: 100%;
+      max-width: 375px;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 구름 배경 기본 스타일 */
+    .cloud {
+      position: absolute;
+      background-color: #2f2f38;
+      border-radius: 50%;
+    }
+
+    /* 첫번째 구름 모양 및 위치 */
+    .cloud1 {
+      width: 130px;
+      height: 130px;
+      top: 120px;
+      left: 30px;
+    }
+    .cloud1::before, .cloud1::after {
+      content: "";
+      position: absolute;
+      background-color: #2f2f38;
+      border-radius: 50%;
+    }
+    .cloud1::before {
+      width: 90px;
+      height: 90px;
+      top: -30px;
+      left: 50px;
+    }
+    .cloud1::after {
+      width: 25px;
+      height: 25px;
+      top: 100px;
+      left: 100px;
+    }
+
+    /* 두번째 구름 모양 및 위치 */
+    .cloud2 {
+      width: 250px;
+      height: 250px;
+      bottom: 120px;
+      right: 10px;
+    }
+    .cloud2::before, .cloud2::after {
+      content: "";
+      position: absolute;
+      background-color: #2f2f38;
+      border-radius: 50%;
+    }
+    .cloud2::before {
+      width: 180px;
+      height: 180px;
+      top: 20px;
+      left: -60px;
+    }
+    .cloud2::after {
+      width: 50px;
+      height: 50px;
+      bottom: -40px;
+      left: 80px;
+    }
+
+    /* 텍스트 컨텐츠 위치 및 스타일 */
+    .content {
+      position: absolute;
+      top: 260px;
+      width: 100%;
+      text-align: center;
+      color: white;
+    }
+    .content h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .content p {
+      margin-top: 16px;
+      color: #007AFF;
+      font-size: 16px;
+    }
+
+    /* 버튼 컨테이너 위치 및 정렬 */
+    .button-wrapper {
+      position: absolute;
+      bottom: 40px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* 시작 버튼 스타일 */
+    .start-button {
+      background-color: #007AFF;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 320px;
+      padding: 18px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .start-button:hover {
+      background-color: #007AFF;
+    }
+
+    /* 구름 로고 기본 스타일 */
+    .cloud-logo {
+      position: absolute;
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    /* 중앙 구름 로고 위치 */
+    .center-logo {
+      top: 70%;
+      left: 75%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+    }
+
+    /* 왼쪽 구름 로고 위치 */
+    .left-logo {
+      bottom: 45%;
+      left: 0;
+      width: 130px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 배경에 배치된 반투명 구름 로고들 -->
+    <img src="../images/logoback.svg" alt="구름로고" class="cloud-logo center-logo" />
+    <img src="../images/logo 좌반투명 (홈화면 배경).svg" alt="좌구름로고" class="cloud-logo left-logo" />
+
+    <!-- 가입 완료 문구 및 안내 텍스트 -->
+    <div class="content">
+      <h1>꿈결 가입 완료!</h1>
+      <p>이제 이름을 설정하러 가 볼까요?</p>
+    </div>
+
+    <!-- 이름 설정 페이지로 이동하는 버튼 -->
+    <div class="button-wrapper">
+      <button class="start-button" onclick="goToNamePage()">이름 설정하기</button>
+    </div>
+  </div>
+
+  <script>
+    /* 이름 설정 페이지로 이동하는 함수 */
+    function goToNamePage() {
+      window.location.href = "set-name.html";
+    }
+  </script>
+</body>
+</html>

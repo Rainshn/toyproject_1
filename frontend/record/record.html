@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>꿈 기록</title>
+  <link rel="stylesheet" href="../home/style.css" />
+  <style>
+    body {
+      background-color: #0e0e0e;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+    }
+
+    .record-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      font-size: 16px;
+    }
+
+    .date-toggle-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .record-main {
+      padding: 16px;
+    }
+
+    .record-title,
+    .record-textarea,
+    .record-tags {
+      width: 100%;
+      background-color: #1b1b30;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .emoji-grid {
+      background-color: #1b1b30;
+      border-radius: 10px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .emoji-grid label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .emoji-grid input {
+      margin-bottom: 4px;
+    }
+
+    /* 숨겨진 date input */
+    #hiddenDatePicker {
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="record-container">
+    <!-- ✅ 상단 날짜 선택 / ☑️ 페이지 이동(추가) -->
+    <header class="record-header">
+      <button class="back-btn" onclick="history.back()">✕</button>
+
+      <!-- ✅ label로 연결 -->
+      <label for="hiddenDatePicker" class="date-toggle-btn">
+        <span id="selectedDate">2025.05.26</span> ▼
+      </label>
+
+      <!-- ☑️ 다음 누르면 페이지 이동 (추가) -->
+      <button id="sumbit-btn" class="next-btn" onclick="location.href='detail.html'">다음</button>
+    </header>
+
+    <!-- ✅ 숨겨진 input[type=date] -->
+    <input type="date" id="hiddenDatePicker" onchange="updateDate()"/>
+
+    <main class="record-main">
+      <label class="record-label">제목 (최대 20자)</label>
+      <input type="text" class="record-title" placeholder="제목을 입력하세요" maxlength="20" />
+
+      <label class="record-label">오늘은 어떤 꿈을 꾸셨나요?</label>
+      <textarea class="record-textarea" rows="4" placeholder="꿈 내용을 입력하세요"></textarea>
+
+      <label class="record-label">등장 요소를 태그해보세요!<br/>(ex. 사람, 장소, 사물 등)</label>
+      <input type="text" class="record-tags" placeholder="ex. 학교, 강아지, 엄마" />
+
+      <label class="record-label">감정이 어떠셨나요?</label>
+      <div class="emoji-grid">
+        <label><input type="radio" name="emotion" /><span>😀</span></label>
+        <label><input type="radio" name="emotion" /><span>😊</span></label>
+        <label><input type="radio" name="emotion" /><span>😭</span></label>
+        <label><input type="radio" name="emotion" /><span>😠</span></label>
+        <label><input type="radio" name="emotion" /><span>😱</span></label>
+        <label><input type="radio" name="emotion" /><span>😁</span></label>
+        <label><input type="radio" name="emotion" /><span>🤔</span></label>
+        <label><input type="radio" name="emotion" /><span>😵</span></label>
+      </div>
+    </main>
+  </div>
+
+  <!-- ✅ 날짜 변경 로직 -->
+  <script>
+    function updateDate() {
+      const value = document.getElementById("hiddenDatePicker").value;
+      if (value) {
+        const formatted = value.replace(/-/g, ".");
+        document.getElementById("selectedDate").innerText = formatted;
+      }
+    }
+
+    // 기본 오늘 날짜로 설정
+    window.onload = () => {
+      const today = new Date().toISOString().slice(0, 10); // yyyy-mm-dd
+      document.getElementById("hiddenDatePicker").value = today;
+    }
+  </script>
+</body>
+</html>

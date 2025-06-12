@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>마이페이지</title>
+  <link rel="stylesheet" href="../home/style.css" />
+</head>
+<body>
+  <div class="mypage-container">
+    <header class="mypage-header">
+      <button class="back-btn">←</button>
+      <h2>마이페이지</h2>
+    </header>
+
+    <div class="mypage-profile">
+      <div class="mypage-avatar">
+        <img src="../images/logoicon.svg" alt="프로필 아이콘" />
+      </div>
+      <p class="mypage-name">김지민</p>
+      <p class="mypage-email">jimin000@gmail.com</p>
+    </div>
+
+    <div class="mypage-buttons">
+      <button class="logout-btn" onclick="openLogoutModal()">로그아웃</button>
+      <button class="withdraw-btn" onclick="openWithdrawModal()">회원탈퇴</button>
+    </div>
+  </div>
+
+  <!-- 로그아웃 모달 -->
+<div class="alert-overlay" id="logoutModal">
+    <div class="alert-box">
+      <p>로그아웃 하시겠습니까?</p>
+      <div class="alert-buttons">
+        <button onclick="closeLogoutModal()">취소</button>
+        <button class="confirm" onclick="confirmLogout()">로그아웃</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 회원탈퇴 모달 -->
+<div class="alert-overlay" id="withdrawModal">
+    <div class="alert-box">
+      <p>정말 탈퇴하시겠습니까?</p>
+      <div class="alert-buttons">
+        <button onclick="closeWithdrawModal()">취소</button>
+        <button class="confirm" onclick="confirmWithdraw()">회원탈퇴</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 하단 네비게이션 -->
+  <footer class="bottom-nav">
+    <button class="nav-icon"><img src="../images/icon-home.png" alt="홈" /></button>
+    <button class="floating-button">＋</button>
+    <button class="nav-icon"><img src="../images/icon-record.png" alt="기록" /></button>
+  </footer>
+
+  <script>
+    // 🔵 로그아웃 모달
+    function openLogoutModal() {
+      document.getElementById("logoutModal").style.display = "flex";
+    }
+
+    function closeLogoutModal() {
+      document.getElementById("logoutModal").style.display = "none";
+    }
+
+    function confirmLogout() {
+      window.location.href = "login.html"; // 예: 로그인 페이지로 이동
+    }
+
+    // 🔴 회원탈퇴 모달
+    function openWithdrawModal() {
+      document.getElementById("withdrawModal").style.display = "flex";
+    }
+
+    function closeWithdrawModal() {
+      document.getElementById("withdrawModal").style.display = "none";
+    }
+
+    function confirmWithdraw() {
+      window.location.href = "withdraw.html"; // 예: 탈퇴 후 이동할 페이지
+    }
+  </script>
+</body>
+</html>
