@@ -9,7 +9,7 @@
   <ul>
     {% for dream in dreams %}
       <li>
-        <a href="{% url 'dreams:dream_detail' dream_id=dream.id %}">
+        <a href="{% url 'interpretation:interp_save' interpret_id=interpret.id %}">
           {{ dream.title }} - {{ dream.created_at|date:"Y-m-d" }}
         </a>
       </li>
